@@ -17,3 +17,4 @@ mapreduce/mapreducers/countTweetsByUser/CountTweetsByUserMapper.class
 mapreduce/mapreducers/countKeywordsByTweet/CountKeywordsByTweetMapper.class
 mapreduce/mapreducers/countRetweetsByTweet/CountRetweetsByTweetReducer.class
 mapreduce/mapreducers/countTweetsByUser/CountTweetsByUser.class
+mapreduce/parser/Parser.class

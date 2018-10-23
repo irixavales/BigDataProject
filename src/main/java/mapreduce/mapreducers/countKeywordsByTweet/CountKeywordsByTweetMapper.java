@@ -15,6 +15,7 @@ public class CountKeywordsByTweetMapper extends Mapper<LongWritable, Text, Text,
 		
 		// words that are not keywords and will be counted
 		// this list includes prepositions, pronouns, etc.
+		// check #, @, links, emojis...
 		String[] stop_words = {"a", "about", "above", "across", "after", "against", "along", "alongside", "amid", 
 				"among", "amongst", "around", "as", "at", "before", "behind", "below", "beneath", "beside", "beyond", 
 				"but", "by", "down", "during", "except", "for", "from", "the", "then", "in", "out", "which", "to", "on"};
@@ -32,6 +33,11 @@ public class CountKeywordsByTweetMapper extends Mapper<LongWritable, Text, Text,
 		// loop through every word in message
 		for (String word: words) {
 			String lowercase_word = word.toLowerCase();
+			// remove hashtags
+			lowercase_word.replace("#", "");
+			// ignore tagged usernames
+			if(lowercase_word.contains("@"))
+				continue;
 			// check if word is one of the keyword to be counted
 			if (!Arrays.asList(stop_words).contains(lowercase_word)) {
 				context.write(new Text(word), new IntWritable(1));

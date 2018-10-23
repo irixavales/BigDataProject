@@ -14,6 +14,7 @@
 /home/ubuntu/eclipse-workspace/bigdata-project/src/main/java/mapreduce/mapreducers/countRetweetsByTweet/CountRetweetsByTweet.java
 /home/ubuntu/eclipse-workspace/bigdata-project/src/main/java/mapreduce/mapreducers/countRetweetsByTweet/CountRetweetsByTweetMapper.java
 /home/ubuntu/eclipse-workspace/bigdata-project/src/main/java/mapreduce/mapreducers/countScreenNames/CountScreenNamesMapper.java
+/home/ubuntu/eclipse-workspace/bigdata-project/src/main/java/mapreduce/parser/Parser.java
 /home/ubuntu/eclipse-workspace/bigdata-project/src/main/java/mapreduce/mapreducers/countWordOccurrences/CountWordOccurrencesReducer.java
 /home/ubuntu/eclipse-workspace/bigdata-project/src/main/java/mapreduce/mapreducers/countWordOccurrences/CountWordOccurrences.java
 /home/ubuntu/eclipse-workspace/bigdata-project/src/main/java/mapreduce/mapreducers/countTweetsByUser/CountTweetsByUserMapper.java

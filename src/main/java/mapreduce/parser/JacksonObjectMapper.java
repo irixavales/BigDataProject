@@ -30,60 +30,76 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
 
+/**
+ * @author Irixa Vales Torres
+ *
+ */
 public class JacksonObjectMapper {
-		
-	private String inputPath = "/home/ubuntu/eclipse-workspace/bigdata-project/src/main/java/mapreduce/parser/raw_tweet100k.json";
-//	private String inputPath = "/home/ubuntu/eclipse-workspace/bigdata-project/src/main/java/mapreduce/parser/dummy_input.json";
+
 	private ObjectMapper objectMapper = new ObjectMapper();	
-	
+	private ArrayList<Tweet> tweets;
+
 	public JacksonObjectMapper() {
 		// ignore attributes that are not declared in class Tweet when mapping
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		tweets = new ArrayList<Tweet>();
 	}
-	
+
+	/**
+	 * @param string : representing the tweet in json format
+	 * @return Tweet : object
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
 	public Tweet parseTweet(String string) throws JsonParseException, JsonMappingException, IOException {			
 		Tweet tweet = objectMapper.readValue(string, Tweet.class);
 		return tweet;
 	}
-	
-	public void parseTweetJsonFile(String inputPath, File newFile, File newFile2) throws IOException {
-		
+
+	/**
+	 * @param inputPath : of the file to read
+	 * @throws IOException
+	 */
+	public void parseTweetJsonFile(String inputPath) throws IOException {
+
 		System.out.println("reading file...");
 		// read json data to a list of strings
 		// every element is a tweet
 		List<String> jsonData = Files.readAllLines(Paths.get(inputPath));		
-		
+
 		System.out.println("mappping data...");
-        ArrayList<String> tweets = new ArrayList<String>();
-        ArrayList<String> users = new ArrayList<String>();
 		for (String jsonRecord: jsonData) {
 			Tweet tweet = parseTweet(jsonRecord);
 			// replace new lines in tweet messages to prevent any errors
 			// Don't know if it's the most efficient way to do it but it's a quick fix
-			tweet.setText(tweet.getText().replace("\n", " "));
-			tweets.add(tweet.getText());
-			users.add(tweet.getUser().getScreen_name());
+			tweet.setText(tweet.getText().replaceAll("\n", " "));
+			// remove links from text
+			// also not the most efficient way but works
+			tweet.setText(tweet.getText().concat(" "));
+			tweet.setText(tweet.getText().replaceAll("http.*?\\s", ""));
+			tweets.add(tweet);
 		}        
-		
-		// create new file and write arrays of tweets to it
-		writeTweetToJson(tweets, newFile);
-		writeTweetToJson(users, newFile2);
 	}
-		
-    private static void writeTweetToJson(ArrayList<?> array, File newFile) {
-		
-        try {
-            PrintWriter writer = new PrintWriter(newFile, "UTF-8");
-            for (Object e: array) {
-            	writer.println(e);
-            }
-            writer.close();
-            
-            System.out.println("new file created at path: "+newFile.getAbsoluteFile());
-        }  
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+	/**
+	 * @param newFile : path of the new file to write to
+	 */
+	public void writeTweetToJson(File newFile) {
+
+		try {
+			PrintWriter writer = new PrintWriter(newFile, "UTF-8");
+			System.out.println("writing txt file...");
+			for (Tweet t: tweets) {
+				writer.println(t.toString());
+			}
+			writer.close();
+
+			System.out.println("new file created at path: "+newFile.getAbsoluteFile());
+		}  
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

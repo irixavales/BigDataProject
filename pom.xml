@@ -6,7 +6,7 @@
 
   <groupId>mapreduce</groupId>
   <artifactId>bigdata-project</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
 
   <name>bigdata-project</name>
   <url>https://github.com/irixavales/BigDataProject.git</url>
@@ -67,23 +67,11 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.7.0</version>
         </plugin>
-		<!--  aqui esta el mardito ssurefire plugin que me estaba explotando toodo -->
+		<!--  aqui estaba el mardito surefire plugin que me estaba explotando toodo -->
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
-          <configuration>
-	          <includes>
-	            <include>src/main/java/mapreduce.mapreducers.countWordOccurrences</include>
-	          </includes>
-	          <excludes>
-	            <exclude>src/main/java/mapreduce.parser</exclude>
-	            <exclude>src/main/java/mapreduce.mapreducers.countKeywordsByTweet</exclude>
-	            <exclude>src/main/java/mapreduce.mapreducers.countRepliesByTweet</exclude>
-	            <exclude>src/main/java/mapreduce.mapreducers.countRetweetsByTweet</exclude>
-	            <exclude>src/main/java/mapreduce.mapreducers.countScreenNames</exclude>
-	            <exclude>src/main/java/mapreduce.mapreducers.countTweetsByUser</exclude>
-	          </excludes>
-	      </configuration>
+
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>

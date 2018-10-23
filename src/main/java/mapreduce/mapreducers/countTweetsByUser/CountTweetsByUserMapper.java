@@ -14,12 +14,12 @@ public class CountTweetsByUserMapper extends Mapper<LongWritable, Text, Text, In
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
 		// split tweet obj in columns by attributes
-		String cols[] = value.toString().split(",");
+//		String cols[] = value.toString().split(",");
 
 		// get the user id
-		String usr_id = cols[1];
+//		String usr_id = cols[1];
 
-		context.write(new Text(usr_id), new IntWritable(1));
+		context.write(value, new IntWritable(1));
 
 
 	}

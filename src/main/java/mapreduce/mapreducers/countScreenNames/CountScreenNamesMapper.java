@@ -19,7 +19,7 @@ public class CountScreenNamesMapper extends Mapper<LongWritable, Text, Text, Int
 		// get the user screen name
 //		String screen_name = cols[2];
 
-		context.write(new Text(value), null);
+		context.write(new Text(value), new IntWritable(1));
 
 	}
 }
